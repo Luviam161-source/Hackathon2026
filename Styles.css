@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+body{
+    background-color: aliceblue;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.flashcard {
+    width: 300px;
+    height: 100;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 15px 15px;
+    text-align:center;
+    background-color: white;
+}
+
+.respuestaParent:hover .respuestaChild{
+    display: block;
+}
+
+.respuestaChild{
+    display: none;
+}
+
+.caja{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
