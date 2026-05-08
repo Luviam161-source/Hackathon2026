@@ -1,47 +1,79 @@
 import requests
-import json 
-OLLAMA_URL ="http://Localhost:11434/api/generate"
-MODEL_NAME = "llama3.2" 
+import json
+
+# Ollama local API
+ollama_url = "http://localhost:11434/api/generate"
+
 def generate_flashcards(topic, amount=5, level="General"):
-    prompt = f""" 
-Eres Un Asistente Educativo Experto.
 
-Crea {amount} tarjetas de estudio sobre el tema : {topic}.
-Nivel de dificultad: {level}.
+    prompt = f"""
+Eres un asistente educativo experto.
 
-Responde solamente en formato JSON Valido.
-No escribas la explicacion fuera del JSON.
+Crea {amount} tarjetas de estudio sobre el tema: {topic}.
+Nivel: {level}.
 
-Usa esta estructura exactamente para cada tarjeta:
+Devuelve SOLO JSON en este formato:
+
 [
   {{
-    "Pregunta" : "Pregunta Clara aqui ",
-    "Respuesta": "Respuesta Breve y concisa aqui",
-    "Dificultad": "{level}" 
-    }}
-    ]
-    """
-    response =requests.post(OLLAMA_URL,json={
-        "model": MODEL_NAME,
-        "prompt": prompt,
-        "stream": False ,
-        "format": "json"
-    },
-    timeout=120
-    )
-    response.raise_for_status()
+    "Pregunta": "Pregunta clara aquí",
+    "Respuesta": "Respuesta breve y concisa aquí",
+    "Dificultad": "{level}"
+  }}
+]
+"""
 
-    result = response.json()
-    ai_text = result.get("response","")
+    # Payload for Ollama
+    payload = {
+        "model": "gemma3:4b",
+        "prompt": prompt,
+        "stream": False
+    }
 
     try:
-        flashcards = json.loads(ai_text)
-    except json.JSONDecodeError:
-        flashcards = [
+        response = requests.post(
+            ollama_url,
+            json=payload,
+            timeout=120
+        )
+
+        print("✅ STATUS:", response.status_code)
+        print("🔍 RESPONSE:", response.text)
+
+        response.raise_for_status()
+
+        result = response.json()
+
+        # Get the response from Ollama
+        ai_text = result.get("response", "")
+
+        # Clean the response (remove code blocks if present)
+        ai_text = ai_text.strip("```json").strip("```").strip()
+
+        print("🧠 TEXTO IA:", ai_text)
+
+        try:
+            flashcards = json.loads(ai_text)
+        except json.JSONDecodeError as e:
+            print("❌ ERROR JSON:", e)
+
+            flashcards = [
+                {
+                    "Pregunta": "Error al convertir JSON",
+                    "Respuesta": ai_text,
+                    "Dificultad": level
+                }
+            ]
+
+        return flashcards
+
+    except requests.exceptions.RequestException as e:
+        print("❌ ERROR HTTP:", e)
+
+        return [
             {
-                "Pregunta": "Error al generar la tarjeta",
-                "Respuesta": ai_text,
+                "Pregunta": "Error de conexión",
+                "Respuesta": str(e),
                 "Dificultad": level
             }
         ]
-    return flashcards
