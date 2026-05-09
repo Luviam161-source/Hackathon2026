@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio AI Generator</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
+        .caja { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .flashcard { border: 2px solid #007bff; border-radius: 10px; padding: 20px; margin: 15px 0; background: #fff; }
+        select, input { padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>AI Flashcard Tool</h1>
+    
+    <form method="POST">
+        <input type="text" name="user_topic" placeholder="Topic..." required>
+        <select name="user_level">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+        </select>
+        <button type="submit">Generate</button>
+    </form>
+
+    <hr>
+
+    <div class="caja">
+        <h3>Current Topic: {{ topic }} ({{ level }})</h3>
+        <div class="flashcard">
+            <p><strong>Question:</strong> {{ pregunta }}</p>
+        </div>
+        <div class="flashcard" style="border-color: #28a745;">
+            <p><strong>Answer:</strong> {{ respuesta }}</p>
+        </div>
+    </div>
+</body>
+</html>
