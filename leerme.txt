@@ -1,0 +1,23 @@
+# Instrucciones para el Generador de Flashcards con IA
+
+Hola, much@ch@s He logrado integrar la IA local para que las flashcards se generen automáticamente. Aquí tienen los pasos para que les funcione en sus computadoras para el portafolio:
+
+1. INSTALAR OLLAMA:
+   Descarguen y instalen Ollama desde https://ollama.com. Esto es lo que permite correr la IA en sus laptops.
+
+2. DESCARGAR EL MODELO:
+   Abran una terminal (CMD o PowerShell) y ejecuten este comando:
+   ollama pull qwen2.5-coder:1.5b
+
+   (Elegí este modelo porque solo pesa 986MB y corre fluido incluso en laptops con 4GB de VRAM).
+
+3. LIBRERÍAS DE PYTHON:
+   Asegúrense de tener instalado Flask y Requests:
+   pip install flask requests
+
+4. EJECUTAR EL PROYECTO:
+   - Cambien a la rama 'feature-ai-generator' para ver el código actualizado.
+   - Ejecuten: python cerebro.py
+   - Abran http://127.0.0.1:5000 en su navegador.
+
+Cualquier duda con la integración de los archivos .html o el servidor de Flask, me avisan. 
