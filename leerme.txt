@@ -21,3 +21,4 @@ Hola, much@ch@s He logrado integrar la IA local para que las flashcards se gener
    - Abran http://127.0.0.1:5000 en su navegador.
 
 Cualquier duda con la integración de los archivos .html o el servidor de Flask, me avisan. 
+Muchas gracias por darme un mini-espacio en su grupo, a la verdad me hicieron el dia despues de tan mala experiencia con el que me pusieron, si me quieren contactar soy Josian Matias Cabanillas en FB o @Dasnoozecruise en Instagram, cuidense y espero que le funcione y lo pongan a su portafolio!
